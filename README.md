@@ -1,0 +1,2 @@
+Dette er et slags "testprosjekt" hvor man har to brukere satt opp i databasen - admin og testbruker. Meningen med dette prosjektet er å simulere et support system hvor en bruker/tjenesteyter av tjenesten kan sende henvendelser. De kan definere tittel og beskrivelse, og dette dukker opp på dashboardet deres.
+Admin kan se alle henvendelser, og de kan enten løse eller lukke henvendelser. Om en av disse statusene er fast, ser brukeren det i dashboardet når de ser på de individuelle henvendelsene de har laget.
