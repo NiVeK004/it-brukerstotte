@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Se henvendelser</title>
+</head>
+<body>
+    <h1>{{ ticket.tittel }}</h1>
+    <p><strong>Status:</strong> {{ ticket.status }}</p>
+    <p><strong>Beskrivelse:</strong></p>
+    <p>{{ ticket.description }}</p>
+    {% if current_user.role == "admin" and ticket.status != "Lukket" %}
+        <form action="{{ url_for('close_ticket', ticket_id=ticket.id) }}" method="POST">
+            <button type="submit">Lukk henvendelse</button>
+        </form>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Til hovedmeny</a>
+</body>
+</html>

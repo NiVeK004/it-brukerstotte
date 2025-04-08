@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hovedmeny</title>
+</head>
+<body>
+    <h1>Velkommen, {{ current_user.username }}</h1>
+    <a href="{{ url_for('logout') }}">Logg ut</a>
+    <a href="{{ url_for('create_ticket') }}">Lag en henvendelse</a>
+
+    <h2>Dine henvendelser</h2>
+    {% if tickets %}
+    <ul>
+        {% for ticket in tickets %}
+        <li>
+            <h3>{{ ticket.tittel }}</h3>
+            <p>{{ ticket.description }}</p>
+            <a href="{{ url_for('view_ticket', ticket_id=ticket.id) }}">Se henvendelse</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Ingen henvendelser funnet. <a href="{{ url_for('create_ticket') }}">Lag en her!</a>.</p>
+    {% endif %}
+</body>
+</html>

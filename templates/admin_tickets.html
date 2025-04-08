@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin hovedmeny</title>
+</head>
+<body>
+
+    <h1>Admin hovedmeny</h1>
+    <!-- Henvendelser, tabell -->
+    {% if tickets %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tittel</th>
+                    <th>Status</th>
+                    <th>Beskrivelse</th>
+                    <th>Handlinger</th>
+                </tr>
+            </thead>
+<tbody>
+{% for ticket in tickets %}
+    <tr>
+        <td>{{ ticket.id }}</td>
+        <td>{{ ticket.tittel }}</td>
+        <td>
+            {% if ticket.status == 'Lukket' %}
+                {{ ticket.status }}
+            {% elif ticket.status == 'Løst' %}
+                {{ ticket.status }}
+            {% else %}
+                Åpen
+            {% endif %}
+        </td>
+        <td>{{ ticket.description }}</td>
+        <td>
+            {% if ticket.status != 'Lukket' %}
+                <form action="{{ url_for('close_ticket', ticket_id=ticket.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">Lukk henvendelse</button>
+                </form>
+                <br>
+                <form action="{{ url_for('resolve_ticket', ticket_id=ticket.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">Løs henvendelse</button>
+                </form>
+            {% else %}
+                Henvendelse lukket
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% else %}
+    <p>Ingen henvendelser tilgjengelige.</p>
+{% endif %}
+</body>
+</html>

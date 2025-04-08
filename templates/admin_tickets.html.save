@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Ticket Dashboard</title>
+</head>
+<body>
+
+    <h1>Admin Ticket Dashboard</h1>
+
+    <!-- Flash messages (success, danger, etc.) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert-container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Tickets Table -->
+    {% if tickets %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+<tbody>
+{% for ticket in tickets %}
+    <tr>
+        <td>{{ ticket.id }}</td>
+        <td>{{ ticket.tittel }}</td>
+        <td>
+            {% if ticket.status == 'Closed' %}
+                Closed
+            {% elif ticket.status == 'Løst' %}
+                Resolved
+            {% else %}
+                Open
+            {% endif %}
+        </td>
+        <td>{{ ticket.description }}</td>
+        <td>
+            {% if ticket.status != 'Closed' %}
+                <!-- Close Ticket Form -->
+                <form action="{{ url_for('close_ticket', ticket_id=ticket.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">Close Ticket</button>
+                </form>
+                <br>
+                <!-- Resolve Ticket Form -->
+                <form action="{{ url_for('resolve_ticket', ticket_id=ticket.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">Resolve Ticket</button>
+                </form>
+            {% else %}
+                Ticket Closed
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+ </tbody>
+        </table>
+    {% else %}
+        <p>No tickets available.</p>
+    {% endif %}
+</body>
+</html>

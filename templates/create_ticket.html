@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Henvendelser</title>
+</head>
+<body>
+    <h1>Lag en henvendelse</h1>
+    <form method="POST" action="{{ url_for('create_ticket') }}">
+        <label for="tittel">Tittel:</label>
+        <input type="text" name="tittel" id="tittel" required><br>
+        <label for="description">Beskrivelse:</label>
+        <textarea name="description" id="description" required></textarea><br>
+        <button type="submit">Fullfør henvendelse</button>
+    </form>
+</body>
+</html>
